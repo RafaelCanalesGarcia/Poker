@@ -1,11 +1,10 @@
 package poker.dominio;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-public class deck {
-    private ArrayList<card> deck;
+public class Deck {
+    private ArrayList<Card> deck;
 
     private void fill() { // (llenar) iteramos en cada array para introducir las distintas cartas al mazo.
         String[] suits = {"Hearts", "Diamonds", "Spades", "Clovers"};
@@ -13,18 +12,18 @@ public class deck {
 
         for (String suit : suits) {
             for (String character : characters) {
-                deck.add(new card(character, suit));
+                deck.add(new Card(character, suit));
             }
         }
     }
 
-    public deck() { // (mazo) instanciamos mazo como nuevo ArrayList y aplicamos el método (llenar)
+    public Deck() { // (mazo) instanciamos mazo como nuevo ArrayList y aplicamos el método (llenar)
         this.deck = new ArrayList<>();
         fill();
     }
 
     public void showDeck() { // (mostrarMazo) recorremos el ArrayList y mostramos carta por carta en orden.
-        for (card card : deck) {
+        for (Card card : deck) {
             System.out.println(card);
         }
     }
@@ -35,7 +34,7 @@ public class deck {
         igualamos el original al nuevo mazo.
         */
         Random random = new Random();
-        ArrayList<card> newDeck = new ArrayList<>();
+        ArrayList<Card> newDeck = new ArrayList<>();
         int i = random.nextInt(deck.size() - 1);
         newDeck.addAll(deck.subList(i, deck.size()));
         newDeck.addAll(deck.subList(0, i));
@@ -53,7 +52,7 @@ public class deck {
         Random random = new Random();
         for (int i = deck.size() - 1; i > 0; i--) {
             int j = random.nextInt(i + 1);
-            card temporary = deck.get(i);
+            Card temporary = deck.get(i);
             deck.set(i, deck.get(j));
             deck.set(j, temporary);
         }

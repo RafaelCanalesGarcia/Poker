@@ -1,6 +1,6 @@
 package poker.dominio;
 
-public class card {
+public class Card {
     private String character;
     private String suit;
 
@@ -9,7 +9,7 @@ public class card {
         return character + " of " + suit;
     }
 
-    public card(String character, String suit) {
+    public Card(String character, String suit) {
         this.character = character;
         this.suit = suit;
     }
