@@ -7,24 +7,28 @@ public class Player {
     private int money = 10000;
 
     private int currentBet;
+    private int toBet = 0;
 
     public void bet(BetType type) {
         switch (type) {
             case MATCH:
-                currentBet = PokerTable.minBet;
+                toBet = PokerTable.maxBet - currentBet;
+                currentBet = currentBet + toBet;
                 break;
             case DOUBLE:
-                currentBet = (PokerTable.minBet * 2);
+                toBet = (PokerTable.maxBet * 2) - currentBet;
+                currentBet = currentBet + toBet;
                 break;
             case ALL_IN:
-                currentBet = money;
+                toBet = money;
+                currentBet = currentBet + toBet;
                 break;
             default:
                 currentBet = 0;
         }
-        PokerTable.minBet = currentBet;
-        PokerTable.pot = PokerTable.pot + currentBet;
-        money = money - currentBet;
+        PokerTable.maxBet = currentBet;
+        PokerTable.pot = PokerTable.pot + toBet;
+        money = money - toBet;
     }
 
 
