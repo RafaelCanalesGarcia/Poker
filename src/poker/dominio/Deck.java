@@ -1,10 +1,9 @@
 package poker.dominio;
-
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Deck {
-    private ArrayList<Card> deck;
+    private static ArrayList<Card> deck;
 
     private void fill() { // (llenar) iteramos en cada array para introducir las distintas cartas al mazo.
         String[] suits = {"Hearts", "Diamonds", "Spades", "Clovers"};
@@ -59,5 +58,34 @@ public class Deck {
         cut();
         cut();
     }
+    private void removeFirstCard(){
+        Card firstCard = deck.get(0);
+        deck.remove(firstCard);
+        deck.add(firstCard);
+    }
+    public void deal() {
+        for (int i = 0; i < PokerTable.Players.size(); i++) {
+            Player.hand.set(0,deck.get(0));
+            removeFirstCard();
+            Player.hand.set(1,deck.get(0));
+            removeFirstCard();
+        }
+    }
 
+    public void draw3cards() {
+        PokerTable.tableCards.set(0,deck.get(0));
+        removeFirstCard();
+        PokerTable.tableCards.set(1,deck.get(0));
+        removeFirstCard();
+        PokerTable.tableCards.set(2,deck.get(0));
+        removeFirstCard();
+    }
+
+    public void drawcard4() {
+        PokerTable.tableCards.set(3,deck.get(0));
+        removeFirstCard();
+    }
+    public void drawcard5() {
+        PokerTable.tableCards.set(4,deck.get(0));
+    }
 }

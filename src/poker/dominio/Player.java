@@ -1,30 +1,38 @@
 package poker.dominio;
 
-import poker.main.Main;
+import java.util.ArrayList;
 
 public class Player {
-    private String name;
+    private final String name;
     private int money = 10000;
 
-    private int currentBet;
+
+    private int currentBet = 0;
     private int toBet = 0;
+    public static boolean inGame;
+
+    public static ArrayList<Card> hand = new ArrayList<>(2);
 
     public void bet(BetType type) {
         switch (type) {
             case MATCH:
                 toBet = PokerTable.maxBet - currentBet;
                 currentBet = currentBet + toBet;
+                inGame = true;
                 break;
             case DOUBLE:
                 toBet = (PokerTable.maxBet * 2) - currentBet;
                 currentBet = currentBet + toBet;
+                inGame = true;
                 break;
             case ALL_IN:
                 toBet = money;
                 currentBet = currentBet + toBet;
+                inGame = true;
                 break;
-            default:
-                currentBet = 0;
+            case LEAVE:
+                inGame = false;
+                break;
         }
         PokerTable.maxBet = currentBet;
         PokerTable.pot = PokerTable.pot + toBet;
@@ -37,11 +45,8 @@ public class Player {
     }
 
 
-    public Player() {
-    }
-
-    public Player(String name) {
-        this.name = name;
+    public Player(String playerName) {
+        this.name = playerName;
     }
 
     @Override
@@ -56,4 +61,6 @@ public class Player {
     public String getName() {
         return name;
     }
+
+
 }
