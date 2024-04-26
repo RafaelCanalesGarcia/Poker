@@ -1,4 +1,4 @@
-package poker.dominio;
+package Poker.dominio;
 
 public enum BetType {
     MATCH(),

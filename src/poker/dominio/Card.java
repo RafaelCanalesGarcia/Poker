@@ -1,19 +1,11 @@
-package poker.dominio;
+package Poker.dominio;
 
 public class Card {
+    // Variables
     private String character;
     private String suit;
 
-    @Override
-    public String toString() {
-        return character + " of " + suit;
-    }
-
-    public Card(String character, String suit) {
-        this.character = character;
-        this.suit = suit;
-    }
-
+    //Getters and Setters
     public String getCharacter() {
         return character;
     }
@@ -27,6 +19,17 @@ public class Card {
     }
 
     public void setSuit(String suit) {
+        this.suit = suit;
+    }
+
+    // Methods
+    @Override
+    public String toString() {
+        return character + " of " + suit;
+    }
+
+    public Card(String character, String suit) {
+        this.character = character;
         this.suit = suit;
     }
 }

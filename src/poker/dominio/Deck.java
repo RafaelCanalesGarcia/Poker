@@ -1,9 +1,22 @@
-package poker.dominio;
+package Poker.dominio;
+
 import java.util.ArrayList;
 import java.util.Random;
 
+import static Poker.dominio.PokerTable.Players;
+
 public class Deck {
+    // Variables
     private static ArrayList<Card> deck;
+
+    // Getters and Setters
+    public static ArrayList<Card> getDeck() {
+        return deck;
+    }
+
+    public static void setDeck(ArrayList<Card> deck) {
+        Deck.deck = deck;
+    }
 
     private void fill() { // (llenar) iteramos en cada array para introducir las distintas cartas al mazo.
         String[] suits = {"Hearts", "Diamonds", "Spades", "Clovers"};
@@ -27,11 +40,7 @@ public class Deck {
         }
     }
 
-    private void cut() { /* (cortar) instanciamos la clase Random para usar sus caracteristicas
-        creamos nuevoMazo en forma de ArrayList, instanciamos numero aleatorio dentro de los limites del mazo (i)
-        addAll añadimos al final lo que indiquemos (subList (desde(incluido), hasta(excluido)))
-        igualamos el original al nuevo mazo.
-        */
+    private static void cut() { //cortar el mazo
         Random random = new Random();
         ArrayList<Card> newDeck = new ArrayList<>();
         int i = random.nextInt(deck.size() - 1);
@@ -40,7 +49,7 @@ public class Deck {
         deck = newDeck;
     }
 
-    public void shuffle() {
+    public void shuffle() { // barajar con 2 cortes de mazo
         /* (barajar) instanciamos la clase Random para usar sus caracteristicas.
         iteramos por cada elemento del mazo(deck)
         damos a "j" un valor aleatorio con la caracteristica .nextInt(n)
@@ -58,34 +67,30 @@ public class Deck {
         cut();
         cut();
     }
-    private void removeFirstCard(){
+
+    public void removeFirstCard() { // descartar siguiente carta
         Card firstCard = deck.get(0);
         deck.remove(firstCard);
         deck.add(firstCard);
     }
-    public void deal() {
-        for (int i = 0; i < PokerTable.Players.size(); i++) {
-            Player.hand.set(0,deck.get(0));
+
+
+
+    public void deal() { // reparte cartas a cada jugador
+
+        for (Player player : Players) {
+            player.addCard(deck.get(0));
             removeFirstCard();
-            Player.hand.set(1,deck.get(0));
+            player.addCard(deck.get(0));
             removeFirstCard();
         }
     }
 
-    public void draw3cards() {
-        PokerTable.tableCards.set(0,deck.get(0));
-        removeFirstCard();
-        PokerTable.tableCards.set(1,deck.get(0));
-        removeFirstCard();
-        PokerTable.tableCards.set(2,deck.get(0));
-        removeFirstCard();
+    public void drawcards(int times) { //saca x primeras cartas
+        for (int i = 0; i < times; i++) {
+            PokerTable.tableCards.add(deck.get(0));
+            removeFirstCard();
+        }
     }
 
-    public void drawcard4() {
-        PokerTable.tableCards.set(3,deck.get(0));
-        removeFirstCard();
-    }
-    public void drawcard5() {
-        PokerTable.tableCards.set(4,deck.get(0));
-    }
 }
